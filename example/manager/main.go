@@ -7,9 +7,9 @@ import (
 
 	"encoding/json"
 
-	"github.com/asticode/go-astilog"
-	"github.com/asticode/go-astiws"
 	"github.com/julienschmidt/httprouter"
+	"github.com/molotovtv/go-astilog"
+	"github.com/molotovtv/go-astiws"
 )
 
 // Constants
@@ -77,13 +77,14 @@ func ManagerFromContext(ctx context.Context) *astiws.Manager {
 }
 
 // AdaptClient adapts a client
-func AdaptClient(m *astiws.Manager) func(c *astiws.Client) {
-	return func(c *astiws.Client) {
+func AdaptClient(m *astiws.Manager) func(c *astiws.Client) error {
+	return func(c *astiws.Client) error {
 		// Auto register client
 		m.AutoRegisterClient(c)
 
 		// Set up listeners
 		c.SetListener("asticode", HandleAsticode)
+		return nil
 	}
 }
 

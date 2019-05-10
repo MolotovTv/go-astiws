@@ -8,8 +8,8 @@ import (
 
 	"encoding/json"
 
-	"github.com/asticode/go-astilog"
-	"github.com/asticode/go-astiws"
+	"github.com/molotovtv/go-astilog"
+	"github.com/molotovtv/go-astiws"
 )
 
 // Flags
