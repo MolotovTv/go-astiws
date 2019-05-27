@@ -83,12 +83,12 @@ func (c *Client) WithContext(ctx context.Context) *Client {
 // Close closes the client properly
 func (c *Client) Close() (err error) {
 	// Log
-	astilog.DebugCf(c.ctx, "astiws: closing astiws client %p", c)
+	astilog.Debugf("astiws: closing astiws client %p", c)
 
 	// There's a connection to close
 	if c.conn != nil {
 		// Send a close frame
-		astilog.DebugCf(c.ctx, "astiws: sending close frame")
+		astilog.Debugf("astiws: sending close frame")
 		if err = c.write(websocket.CloseMessage, websocket.FormatCloseMessage(websocket.CloseNormalClosure, "")); err != nil {
 			err = errors.Wrap(err, "astiws: sending close frame failed")
 			return
@@ -113,7 +113,7 @@ func (c *Client) DialWithHeaders(addr string, h http.Header) (err error) {
 	}
 
 	// Dial
-	astilog.DebugCf(c.ctx, "astiws: dialing %s with client %p", addr, c)
+	astilog.Debugf("astiws: dialing %s with client %p", addr, c)
 	if c.conn, _, err = websocket.DefaultDialer.Dial(addr, h); err != nil {
 		err = errors.Wrapf(err, "astiws: dialing %s failed", addr)
 		return
@@ -166,7 +166,7 @@ func (c *Client) read(handlePing func(ctx context.Context)) (err error) {
 		// Unmarshal
 		var b BodyMessageRead
 		if err = json.Unmarshal(m, &b); err != nil {
-			astilog.ErrorC(c.ctx, errors.Wrap(err, "astiws: unmarshaling message failed"))
+			astilog.Error(errors.Wrap(err, "astiws: unmarshaling message failed"))
 			continue
 		}
 
@@ -201,7 +201,7 @@ func (c *Client) ping(ctx context.Context) {
 			return
 		case <-t.C:
 			if err := c.write(websocket.PingMessage, []byte{}); err != nil {
-				astilog.ErrorC(c.ctx, errors.Wrap(err, "astiws: sending ping message failed"))
+				astilog.Error(errors.Wrap(err, "astiws: sending ping message failed"))
 			}
 		}
 	}
@@ -246,7 +246,7 @@ func (c *Client) executeListeners(eventName string, payload json.RawMessage) {
 	for _, f := range fs {
 		// Execute listener
 		if err := f(c, eventName, payload); err != nil {
-			astilog.ErrorC(c.ctx, errors.Wrapf(err, "astiws: executing listener for event %s failed", eventName))
+			astilog.Error(errors.Wrapf(err, "astiws: executing listener for event %s failed", eventName))
 			continue
 		}
 	}
