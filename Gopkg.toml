@@ -35,7 +35,7 @@
 
 [[constraint]]
   name = "github.com/molotovtv/go-astilog"
-  branch = "master"
+  branch = "v2"
 
 [[constraint]]
   name = "github.com/pkg/errors"
