@@ -29,9 +29,9 @@
   name = "github.com/molotovtv/go-astilog"
   branch = "v2"
 
-[[constraint]]
+[[override]]
   name = "github.com/gorilla/websocket"
-  version = "1.4.0"
+  revision = "ea4d1f681babbce9545c9c5f3d5194a789c89f5b"
 
 [[constraint]]
   name = "github.com/julienschmidt/httprouter"
