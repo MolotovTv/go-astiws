@@ -7,9 +7,9 @@ import (
 
 	"encoding/json"
 
-	"github.com/asticode/go-astilog"
-	"github.com/asticode/go-astiws"
 	"github.com/julienschmidt/httprouter"
+	"github.com/molotovtv/go-astilog"
+	"github.com/molotovtv/go-astiws"
 )
 
 // Constants
@@ -28,7 +28,7 @@ func main() {
 	astilog.FlagInit()
 
 	// Init manager
-	var m = astiws.NewManager(1024)
+	var m = astiws.NewManager(astiws.ManagerConfiguration{MaxMessageSize: 1024})
 	defer m.Close()
 
 	// Init router

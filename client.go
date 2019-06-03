@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/asticode/go-astilog"
+	"github.com/molotovtv/go-astilog"
 	"github.com/gorilla/websocket"
 	"github.com/pkg/errors"
 )

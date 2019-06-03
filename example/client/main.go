@@ -8,8 +8,8 @@ import (
 
 	"encoding/json"
 
-	"github.com/asticode/go-astilog"
-	"github.com/asticode/go-astiws"
+	"github.com/molotovtv/go-astilog"
+	"github.com/molotovtv/go-astiws"
 )
 
 // Flags
@@ -31,7 +31,7 @@ func main() {
 		wg.Add(1)
 		go func(i int) {
 			// Init client
-			var c = astiws.NewClient(1024)
+			var c = astiws.NewClient(astiws.ClientConfiguration{MaxMessageSize: 1024})
 			defer c.Close()
 
 			// Set up listeners
